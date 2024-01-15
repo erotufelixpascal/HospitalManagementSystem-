@@ -112,17 +112,20 @@ def is_patient(user):
 #---------AFTER ENTERING CREDENTIALS WE CHECK WHETHER USERNAME AND PASSWORD IS OF ADMIN,DOCTOR OR PATIENT
 def afterlogin_view(request):
     if is_admin(request.user):
-        return redirect('admin-dashboard')
+        #return redirect('admin-dashboard')
+        return redirect('admin_dashboard_view')
     elif is_doctor(request.user):
         accountapproval=models.Doctor.objects.all().filter(user_id=request.user.id,status=True)
         if accountapproval:
-            return redirect('doctor-dashboard')
+            #return redirect('doctor-dashboard')
+            return redirect('doctor_dashboard_view')
         else:
             return render(request,'Doctor/doctor_wait_for_approval.html')
     elif is_patient(request.user):
         accountapproval=models.Patient.objects.all().filter(user_id=request.user.id,status=True)
         if accountapproval:
-            return redirect('patient-dashboard')
+            #return redirect('patient-dashboard')
+            return redirect('patient_dashboard_view')
         else:
             return render(request,'Patient/patient_wait_for_approval.html')
 
