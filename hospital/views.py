@@ -20,21 +20,21 @@ def home_view(request):
 def adminclick_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
-    return render(request,'hospital/adminclick.html')
+    return render(request,'Admin/adminclick.html')
 
 
 #for showing signup/login button for doctor(by sumit)
 def doctorclick_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
-    return render(request,'hospital/doctorclick.html')
+    return render(request,'Doctor/doctorclick.html')
 
 
 #for showing signup/login button for patient(by sumit)
 def patientclick_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
-    return render(request,'hospital/patientclick.html')
+    return render(request,'Patient/patientclick.html')
 
 
 
@@ -50,7 +50,7 @@ def admin_signup_view(request):
             my_admin_group = Group.objects.get_or_create(name='ADMIN')
             my_admin_group[0].user_set.add(user)
             return HttpResponseRedirect('adminlogin')
-    return render(request,'hospital/adminsignup.html',{'form':form})
+    return render(request,'Admin/adminsignup.html',{'form':form})
 
 
 
@@ -72,7 +72,7 @@ def doctor_signup_view(request):
             my_doctor_group = Group.objects.get_or_create(name='DOCTOR')
             my_doctor_group[0].user_set.add(user)
         return HttpResponseRedirect('doctorlogin')
-    return render(request,'hospital/doctorsignup.html',context=mydict)
+    return render(request,'Doctor/doctorsignup.html',context=mydict)
 
 
 def patient_signup_view(request):
@@ -93,7 +93,7 @@ def patient_signup_view(request):
             my_patient_group = Group.objects.get_or_create(name='PATIENT')
             my_patient_group[0].user_set.add(user)
         return HttpResponseRedirect('patientlogin')
-    return render(request,'hospital/patientsignup.html',context=mydict)
+    return render(request,'Patient/patientsignup.html',context=mydict)
 
 
 
@@ -118,13 +118,13 @@ def afterlogin_view(request):
         if accountapproval:
             return redirect('doctor-dashboard')
         else:
-            return render(request,'hospital/doctor_wait_for_approval.html')
+            return render(request,'Doctor/doctor_wait_for_approval.html')
     elif is_patient(request.user):
         accountapproval=models.Patient.objects.all().filter(user_id=request.user.id,status=True)
         if accountapproval:
             return redirect('patient-dashboard')
         else:
-            return render(request,'hospital/patient_wait_for_approval.html')
+            return render(request,'Patient/patient_wait_for_approval.html')
 
 
 
@@ -161,14 +161,14 @@ def admin_dashboard_view(request):
     'appointmentcount':appointmentcount,
     'pendingappointmentcount':pendingappointmentcount,
     }
-    return render(request,'hospital/admin_dashboard.html',context=mydict)
+    return render(request,'Admin/admin_dashboard.html',context=mydict)
 
 
 # this view for sidebar click on admin page
 @login_required(login_url='adminlogin')
 @user_passes_test(is_admin)
 def admin_doctor_view(request):
-    return render(request,'hospital/admin_doctor.html')
+    return render(request,'Admin/admin_doctor.html')
 
 
 
@@ -176,7 +176,7 @@ def admin_doctor_view(request):
 @user_passes_test(is_admin)
 def admin_view_doctor_view(request):
     doctors=models.Doctor.objects.all().filter(status=True)
-    return render(request,'hospital/admin_view_doctor.html',{'doctors':doctors})
+    return render(request,'Admin/admin_view_doctor.html',{'doctors':doctors})
 
 
 
@@ -211,7 +211,7 @@ def update_doctor_view(request,pk):
             doctor.status=True
             doctor.save()
             return redirect('admin-view-doctor')
-    return render(request,'hospital/admin_update_doctor.html',context=mydict)
+    return render(request,'Admin/admin_update_doctor.html',context=mydict)
 
 
 
@@ -239,7 +239,7 @@ def admin_add_doctor_view(request):
             my_doctor_group[0].user_set.add(user)
 
         return HttpResponseRedirect('admin-view-doctor')
-    return render(request,'hospital/admin_add_doctor.html',context=mydict)
+    return render(request,'Admin/admin_add_doctor.html',context=mydict)
 
 
 
@@ -249,7 +249,7 @@ def admin_add_doctor_view(request):
 def admin_approve_doctor_view(request):
     #those whose approval are needed
     doctors=models.Doctor.objects.all().filter(status=False)
-    return render(request,'hospital/admin_approve_doctor.html',{'doctors':doctors})
+    return render(request,'Admin/admin_approve_doctor.html',{'doctors':doctors})
 
 
 @login_required(login_url='adminlogin')
