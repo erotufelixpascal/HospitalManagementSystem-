@@ -1,14 +1,3 @@
-"""
-
-Developed By : sumit kumar
-facebook : fb.com/sumit.luv
-Youtube :youtube.com/lazycoders
-
-
-"""
-
-
-
 
 from django.contrib import admin
 from django.urls import path
@@ -34,9 +23,10 @@ urlpatterns = [
     path('doctorsignup', views.doctor_signup_view,name='doctorsignup'),
     path('patientsignup', views.patient_signup_view),
     
-    path('adminlogin', LoginView.as_view(template_name='hospital/adminlogin.html')),
-    path('doctorlogin', LoginView.as_view(template_name='hospital/doctorlogin.html')),
-    path('patientlogin', LoginView.as_view(template_name='hospital/patientlogin.html')),
+    path('adminlogin', LoginView.as_view(template_name='Admin/adminlogin.html')),
+    path('doctorlogin', LoginView.as_view(template_name='Doctor/doctorlogin.html')),
+    # path('doctorlogin', views.doctor_signup_view),
+    path('patientlogin', LoginView.as_view(template_name='Patient/patientlogin.html')),
 
 
     path('afterlogin', views.afterlogin_view,name='afterlogin'),
