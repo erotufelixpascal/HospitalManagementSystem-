@@ -1,5 +1,7 @@
 from django.shortcuts import render,redirect,reverse
-from . import forms,models
+#from . import forms,models
+import forms
+import models
 from django.db.models import Sum
 from django.contrib.auth.models import Group
 from django.http import HttpResponseRedirect

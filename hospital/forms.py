@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
-from . import models
+#from . import models
+from hospital import models
 
 
 
@@ -70,7 +71,3 @@ class ContactusForm(forms.Form):
     Message = forms.CharField(max_length=500,widget=forms.Textarea(attrs={'rows': 3, 'cols': 30}))
 
 
-
-#Developed By : sumit kumar
-#facebook : fb.com/sumit.luv
-#Youtube :youtube.com/lazycoders
