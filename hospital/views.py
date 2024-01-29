@@ -113,19 +113,21 @@ def is_patient(user):
 def afterlogin_view(request):
     if is_admin(request.user):
         #return redirect('admin-dashboard')
-        return redirect('admin_dashboard_view')
+        #return redirect('admin_dashboard_view')
+        return render(request,'Admin/admin_dashboard.html')
     elif is_doctor(request.user):
         accountapproval=models.Doctor.objects.all().filter(user_id=request.user.id,status=True)
         if accountapproval:
             #return redirect('doctor-dashboard')
-            return redirect('doctor_dashboard_view')
+            return render('Doctor/doctor_dashboard.html')
         else:
             return render(request,'Doctor/doctor_wait_for_approval.html')
     elif is_patient(request.user):
         accountapproval=models.Patient.objects.all().filter(user_id=request.user.id,status=True)
         if accountapproval:
             #return redirect('patient-dashboard')
-            return redirect('patient_dashboard_view')
+            #return redirect('patient_dashboard_view')
+            return render(request,'Patient/patient_dashboard.html')
         else:
             return render(request,'Patient/patient_wait_for_approval.html')
 
